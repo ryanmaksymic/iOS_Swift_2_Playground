@@ -11,12 +11,14 @@ import Foundation
  - Callout(Prefix operator):
  The '-' can be used to turn a number into a negative value and the operator comes before the value.
  */
+
 let myNumberIsNegative = -2
 
 /*:
  - Callout(Infix operator):
  The '+' helps us combine two values together and goes in between the values.
  */
+
 let addingOperator = 1 + 1
 
 /*:
@@ -46,6 +48,15 @@ let combinedValues = "abc" + 123
  Use the '*' operator to multiply a String and an Int. This returns a new String and repeats the given String the number of times delcared by the Int. ie: "abc" * 3 = "abcabcabc"
  */
 
+func * (left: String, right: Int) -> String {
+  var result = ""
+  for _ in 1...right {
+    result.append(left)
+  }
+  return result
+}
+
+"abc" * 3
 
 /*:
  - Experiment:
@@ -55,15 +66,14 @@ let combinedValues = "abc" + 123
  - Note:
  Changing the behaviour of existing operators is discouraged in real projects as it can cause confusion.
  */
-extension Int {
-  
-  // Comment this function in to try it!
-  //    static func + (left: Int, right: Int) -> Int{
-  //
-  //        return left - right
-  //    }
-}
+//extension Int {
+// Comment this function in to try it!
+//  static func + (left: Int, right: Int) -> Int {
+//    return left - right
+//  }
+//}
 
+10 + 2
 
 /*:
  ### Custom Operators
@@ -78,15 +88,20 @@ postfix func +++ (number: Int) -> Int {
 }
 
 // Now we can freely use our new custom operator
-var incrementOne = 4
+var incrementOne = 10
 var incrementTwo = incrementOne+++
-
 
 /*:
  - Experiment:
  Create your own custom operator using the square root symbol here: √
  */
 
+prefix operator √
+prefix func √ (number: Double) -> Double {
+  return number.squareRoot()
+}
+
+√144
 
 /*:
  ### Swift Operators Guidelines
@@ -100,6 +115,12 @@ var incrementTwo = incrementOne+++
  When we have percentage values, we tend to convert them into their decimal form before doing any arithmetic to them. Create an operator with the '%' that will be a convenient operator to convert Int values into a usable percentage value. ie: 10% = 0.1
  */
 
+postfix operator %
+postfix func % (number: Int) -> Double {
+  return Double(number) / 100.0
+}
+
+10%
 
 /*:
  - Callout(Challenge):
@@ -108,6 +129,20 @@ var incrementTwo = incrementOne+++
  For example, [1,2] + [3,4] = [4,6]. If the array count size are not the same, then return nil
  */
 
+func + (left: [Int], right: [Int]) -> [Int]? {
+  var result = [Int]()
+  
+  guard left.count == right.count else {
+    return nil
+  }
+  
+  for i in 0..<left.count {
+    result.append(left[i] + right[i])
+  }
+  
+  return result
+}
 
+[1, 2] + [3, 4]
 
 //: [Next](@next)
