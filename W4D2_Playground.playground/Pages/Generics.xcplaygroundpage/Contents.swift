@@ -34,22 +34,27 @@ printMyTwoNumbers(num1: "three", num2: "four")
  Now you try! Write a generic function that takes in two parameters and multiply their value together and print the result. (Hint: You might run into an error after finishing. Continue to the next experiment to find out why!)
  */
 
+//func multipleNumbers<Element>(num1: Element, num2: Element) {
+//  return num1 * num2
+//}
 
 /*:
  - Experiment:
  You might have run into error in the console regarding the multiplication operator can only be applied to numbered parameters. This makes sense as multiplying two Strings together doesn't make sense. So, we want to only take in variable types that *can* use the multiplication operator. In this case, we can limit the element type to types that conform to the `Numeric` protocol like below.
  */
 
-func multiply<Element: Numeric>(num1: Element, num2: Element) {
-  
+func multiply<Element:Numeric>(num1: Element, num2: Element) -> Element {
+  return num1 * num2
 }
-
 
 /*:
  - Experiment:
  Update your multiplication function and test it! Try using different variable types to see what works and what doesn't.
  */
 
+multiply(num1: 2, num2: 2)
+multiply(num1: 3.3, num2: 212.2)
+//multiply(num1: "1", num2: "2")
 
 /*:
  - Experiment:
@@ -60,7 +65,18 @@ func multiply<Element: Numeric>(num1: Element, num2: Element) {
  For this experiment, refrain from using the array method `indexOf`. Also the protocol `Equatable` might be useful here. Search it up to see what it's about.
  */
 
+var someArray = [1, 5, 2, 4]
 
+func indexOf<Element:Equatable>(item: Element, inArray array: [Element]) -> Int? {
+  for i in 0..<array.count {
+    if array[i] == item {
+      return i
+    }
+  }
+  return nil
+}
+
+indexOf(item: 5, inArray: someArray)
 
 /*:
  - Callout(Challenge):
@@ -75,7 +91,29 @@ func multiply<Element: Numeric>(num1: Element, num2: Element) {
  - dequeue: remove an item from the queue, and return the removed element
  */
 
+struct Queue<T> {
+  var items : [T]
+  
+  init(items: [T]) {
+    self.items = items
+  }
+  
+  mutating func enqueue(item: T) {
+    items.append(item)
+  }
+  
+  mutating func dequeue() -> T {
+    let result = items[0]
+    items.remove(at: 0)
+    return result
+  }
+}
 
+var myQueue = Queue(items: [1, 2, 3])
+myQueue.enqueue(item: 4)
+myQueue.enqueue(item: 5)
+myQueue.dequeue()
+myQueue.items
 
 //: [Next](@next)
 
