@@ -9,7 +9,7 @@ import Foundation
 /*:
  Imagine we are rolling two six-sided dice. We can use a tuple to represent each of the dice values.
  */
-let diceRoll = (5, 6)
+let diceRoll = (4, 4)
 
 // Our switch statement looks for the cases where the total value of the dice rolled is 11
 switch diceRoll {
@@ -17,6 +17,14 @@ case (5, 6):
   print("We got 11!")
 case (6, 5):
   print("We got 11!")
+case (_, 1):
+  print("Second die is 1!")
+case (2, _):
+  print("First die is 2!")
+case (1...3, 1...3):
+  print("Both dice are in range 1-3!")
+case (let x, let y) where x == y:
+  print("Dice are equal!")
 default:
   print("This roll doesn't matter to us")
 }
@@ -30,7 +38,6 @@ default:
  - case (let x, let y) where x == y
  */
 
-
 /*:
  - Callout(Challenge):
  Create a switch statement that prints out which holiday it is given the month and the day to evaluate. Cover the following holidays:
@@ -40,7 +47,20 @@ default:
  - Halloween Day - Oct 31
  - Otherwise, indiciate the given day is not a holiday
  */
+var date = ("Feb", 14)
 
+switch date {
+case ("Dec", 25):
+  print("Christmas Day")
+case ("Jan", 1):
+  print("New Years Day")
+case ("Feb", 14):
+  print("Valentine's Day")
+case ("Oct", 31):
+  print("Halloween Day")
+default:
+  print("Not a holiday")
+}
 
 /*:
  - Callout(Challenge):
@@ -55,5 +75,19 @@ default:
  - point is outside the blue outlined box
  */
 
+var coord = (11, 1)
+
+switch coord {
+case (_, 0):
+  print("Point is on the x axis")
+case (_, 0):
+  print("Point is on the x axis")
+case (let x, let y) where abs(x) < 2 && abs(y) < 2:
+  print("Point is inside blue box")
+case (let x, let y) where abs(x) > 2 && abs(y) > 2:
+  print("Point is outside blue box")
+default:
+  break
+}
 
 //: [Next](@next)
